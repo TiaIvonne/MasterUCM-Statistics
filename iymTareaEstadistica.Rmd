@@ -1,0 +1,135 @@
+---
+title: "Evaluación estadistica"
+author: "Ivonne Yáñez Mendoza"
+fontsize: 12pt
+output:
+  html_document: 
+    highlight: tango
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+##### Módulo: Estadística
+
+##### Profesor: Conrado Manuel García
+
+##### Master big data & business analytics, Universidad Complutense de Madrid
+
+##### 31 de mayo de 2022
+
+------------------------------------------------------------------------
+
+```{r setup, include=FALSE, comment=NA}
+library(knitr)
+opts_chunk$set(cache=TRUE, error = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(comment = NA)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir=getwd())
+
+```
+
+```{r echo=FALSE, cache= F}
+knitr::read_chunk('iymEstadistica.R')
+```
+
+```{r include = FALSE}
+library("xlsx") #Para leer archivos excel
+library(FinCal)
+library(e1071)
+library(tidyverse)
+library(psych)
+library(car)
+library(nortest)
+library(modeest)
+
+# 
+# datos <- read.xlsx("Libro1.xlsx", sheetIndex = 1)
+# pre_temprano <- datos %>% filter(Época.histórica == 1)
+# pre_tardio <- datos %>% filter(Época.histórica == 2)
+```
+
+**Ejercicio 1**\
+
+Para resolver este ejercicio se han creado dos dataframes a partir del libro excel que contiene los datos tanto para el grupo predinástico temprano y el predinástico tardío.
+
+Con estos datos por separado se han analizado por separado cada uno de estos dos periodos históricos, generando las respectivas mediciones y gráficos pertinentes.\
+
+**Ejercicio 1.a**\
+Se deben obtener las diferentes medidas y graficos de caja y bigotes para cada submuestra.\
+
+**Apartado periodo predinástico temprano**
+
+Medidas de centralizacion, dispersión, asimetría y curtosis para el periodo predinástico temprano
+
+```{r chunk-1, include=TRUE, eval=TRUE, echo=FALSE}
+
+```
+
+**Boxplot e histograma para periodo predinástico temprano**
+
+```{r chunk-2, echo=FALSE}
+
+
+
+```
+
+**Observaciones apartado predinastico temprano**\
+
+**Apartado periodo predinástico tardio**\
+
+Medidas de centralizacion, dispersión, asimetría y curtosis para el periodo predinástico tardio.
+
+```{r chunk-b, include=TRUE, eval=TRUE, echo=FALSE}
+
+
+```
+
+**Boxplot e histograma para el periodo predinastico tardio**
+
+```{r chunk-3, echo=FALSE}
+
+
+
+```
+
+**Observaciones apartado predinastico tardio**\
+
+**Ejercicio 1.b**\
+Determinar si cada una de las dos submuestras sigue una distribucion normal utilizando el test de Kolmogorov-Smirnov.\
+
+En primer lugar se han creado graficos para ver de modo visual si hay distribucion normal, o no, de los datos procesados.
+
+**Estudio preliminar de la normalidad**
+
+```{r chunk-4, echo= FALSE}
+
+```
+
+Para este estudio en particular y al ser muestras relativamente pequeñas (30 casos por submuestra) se ha decidido utilizar el test de Shapiro Wilk para normalidad, obteniendo los siguientes resultados:
+
+1.  Periodo predinastico temprano
+
+```{r chunk-shapiro1, echo= FALSE}
+
+```
+
+El p value en este caso entrega un valor de 0.0003481 y siendo este valor menor a 0.05 se decide rechazar la hipotesis nula, por lo tanto la muestra para el periodo predinastico temprano **no sigue una distribucion normal.**
+
+igualdad de varianza
+
+```{r chunk-igualvar, echo= FALSE}
+
+```
+
+```{r chunk-7, echo= FALSE}
+
+```
+
+<!-- \scriptsize <!--#  --> -->
+
+```{r chunk-8, echo=FALSE}
+
+
+```
