@@ -16,7 +16,7 @@ pre_tardio <- datos %>% filter(Época.histórica == 2)
 tabla_resumen <- datos %>%
   group_by(Época.histórica) %>%  
   summarise( 
-    Casos = n(),       
+    N = n(),       
     Media = round(mean(Anchura.del.cráneo, na.rm = TRUE),digits = 1),
     Mediana = median(Anchura.del.cráneo, na.rm = TRUE),
     Moda = mlv(Anchura.del.cráneo, method = 'mfv'), 
@@ -54,7 +54,7 @@ knitr::kable(tabla_resumen[1:2, 1:10],
 knitr::kable(percentiles[1, 1:7],
              caption = "Cuartiles periodo predinástico temprano",
              col.names = c("Epoca",
-                           "Casos",
+                           "N",
                            "0%",
                            "25%",
                            "50%",
@@ -68,15 +68,15 @@ knitr::kable(percentiles[1, 1:7],
 
 
 knitr::kable(tabla_resumen[3, 1:10],
-             caption = "Anchura de craneo periodo predinastico tardio",
+             caption = "Anchura de cráneo periodo predinástico tardío",
              col.names = c("Epoca", names(tabla_resumen)[-1]),
              align = "cccccccccc",
              format = 'pipe')
 
 
 knitr::kable(percentiles[2, 1:7],
-             caption = "Cuartiles periodo predinastico tardio",
-             col.names = c("Epoca",
+             caption = "Cuartiles periodo predinástico tardío",
+             col.names = c("N",
                            "Casos",
                            "0%",
                            "25%",
@@ -85,6 +85,7 @@ knitr::kable(percentiles[2, 1:7],
                            "100%"),
              align = "ccccccc",
              format = 'pipe')
+
 
 ## ---- chunk-2 ----
 #Boxplot e histograma periodo predinastico temprano
@@ -151,34 +152,42 @@ qqnorm(pre_tardio$Anchura.del.cráneo, col = 'darkgreen',
 qqline(pre_tardio$Anchura.del.cráneo)
 
 
+## ---- kolmogorov-temprano ----
+ks.test(pre_temprano$Anchura.del.cráneo, pnorm, mean(pre_temprano$Anchura.del.cráneo) , 
+        sd(pre_temprano$Anchura.del.cráneo) , exact = FALSE)
+
+## ---- kolmogorov-tardio ----
+ks.test(pre_tardio$Anchura.del.cráneo, pnorm, mean(pre_tardio$Anchura.del.cráneo) , 
+        sd(pre_tardio$Anchura.del.cráneo) , exact = FALSE)
+
+
+## ---- chunk-shapiro1 ----
+#Shapiro test
+shapiro.test(pre_temprano$Anchura.del.cráneo)
+
+## ---- chunk-shapiro2 ----
+#Shapiro test
+shapiro.test(pre_tardio$Anchura.del.cráneo)
+
 
 ## ---- chunk-igualvar ----
 
 boxplot(datos$Anchura.del.cráneo ~ datos$Época.histórica, 
         col = c("lightblue", "pink"), 
-        names=c("temprano", "tardio"),
+        names=c("Temprano", "Tardio"),
         xlab = "Epoca historica",
         ylab = 'Anchura del craneo')
 
 
-## ---- chunk-shapiro1 ----
 
-# Distribucion normal Kolmogorov Smirnov
-#Shapiro test
-shapiro.test(pre_temprano$Anchura.del.cráneo)
-
-## ---- chunk-shapiro2 ----
-shapiro.test(pre_tardio$Anchura.del.cráneo)
-
-
-## ---- chunk-7 ----
+## ---- chunk-levene ----
 
 #levene test para ver si la varianza es diferente para los datos
 leveneTest(Anchura.del.cráneo  ~ as.factor(Época.histórica), 
                      data = datos)
-## ---- chunk-8 ----
 
-#Con var equal true se asume que las varianzas son iguales
+## ---- chunk-t ----
+
 t.test(
   x           = pre_temprano$Anchura.del.cráneo,
   y           = pre_tardio$Anchura.del.cráneo,
@@ -187,6 +196,14 @@ t.test(
   conf.level  = 0.95
 )
 
+
+
+## ---- chunk-wilcox ----
+wilcox.test(pre_temprano$Anchura.del.cráneo, pre_tardio$Anchura.del.cráneo,
+            paired = TRUE) 
+
+## ---- chunk-8 ----
+#Con var equal true se asume que las varianzas son iguales
 t.test(
   x           = pre_temprano$Anchura.del.cráneo,
   y           = pre_tardio$Anchura.del.cráneo,
@@ -200,10 +217,18 @@ t.test(
   y           = pre_tardio$Anchura.del.cráneo,
   alternative = "two.sided",
   var.equal   = TRUE,
+  conf.level  = 0.95
+)
+
+
+t.test(
+  x           = pre_temprano$Anchura.del.cráneo,
+  y           = pre_tardio$Anchura.del.cráneo,
+  alternative = "two.sided",
+  var.equal   = TRUE,
   conf.level  = 0.99
 )
 
 
-# ks.test(pre_temprano$Anchura.del.cráneo, pnorm, mean(pre_temprano$Anchura.del.cráneo) , 
-        # sd(pre_temprano$Anchura.del.cráneo) , exact = FALSE)
+
 
