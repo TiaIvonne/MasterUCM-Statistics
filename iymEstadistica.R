@@ -7,12 +7,15 @@ library(car)
 library(nortest)
 library(modeest)
 
+
 ## ---- chunk-1 ----
+# Lectura de datos en exxcel y separacion en dos subsets, temprano y tardio
 datos <- read.xlsx("Libro1.xlsx", sheetIndex = 1)
 pre_temprano <- datos %>% filter(Época.histórica == 1)
 pre_tardio <- datos %>% filter(Época.histórica == 2)
 
-
+# Generacion tabla resumen con medidas de centralizacion, dispersion, asimetria
+# y curtosis.
 tabla_resumen <- datos %>%
   group_by(Época.histórica) %>%  
   summarise( 
@@ -21,6 +24,7 @@ tabla_resumen <- datos %>%
     Mediana = median(Anchura.del.cráneo, na.rm = TRUE),
     Moda = mlv(Anchura.del.cráneo, method = 'mfv'), 
     Rango =  diff(range(Anchura.del.cráneo)),
+    # Varianza = var(Anchura.del.cráneo),
     Desviacion = round(sd(Anchura.del.cráneo), digits = 2),
     Pearson = round(coefficient.variation(sd=sd(Anchura.del.cráneo), 
                     avg = mean(Anchura.del.cráneo)), 
@@ -29,8 +33,6 @@ tabla_resumen <- datos %>%
                    digits = 3),
     Curtosis = round(kurtosis(Anchura.del.cráneo, na.rm = TRUE), digits = 4)
   )
-
-
 
 percentiles <- datos %>%
   group_by(Época.histórica,) %>%  
@@ -44,16 +46,15 @@ percentiles <- datos %>%
     
   )
 
-
 knitr::kable(tabla_resumen[1:2, 1:10],
              col.names = c("Epoca", names(tabla_resumen)[-1]),
-             caption = "Anchura de craneo periodo predinastico temprano",
+             caption = "Anchura de cráneo del periodo predinástico temprano",
              align = "cccccccccc",
              format = 'pipe')
 
 knitr::kable(percentiles[1, 1:7],
-             caption = "Cuartiles periodo predinástico temprano",
-             col.names = c("Epoca",
+             caption = "Cuartiles del periodo predinástico temprano",
+             col.names = c("Época",
                            "N",
                            "0%",
                            "25%",
@@ -68,14 +69,14 @@ knitr::kable(percentiles[1, 1:7],
 
 
 knitr::kable(tabla_resumen[3, 1:10],
-             caption = "Anchura de cráneo periodo predinástico tardío",
+             caption = "Anchura de cráneo del periodo predinástico tardío",
              col.names = c("Epoca", names(tabla_resumen)[-1]),
              align = "cccccccccc",
              format = 'pipe')
 
 
 knitr::kable(percentiles[2, 1:7],
-             caption = "Cuartiles periodo predinástico tardío",
+             caption = "Cuartiles del periodo predinástico tardío",
              col.names = c("N",
                            "Casos",
                            "0%",
@@ -92,12 +93,12 @@ knitr::kable(percentiles[2, 1:7],
 
 par(mfcol = c(1, 2), cex=0.7) 
 boxplot(pre_temprano$Anchura.del.cráneo, col = 'lightblue', 
-        main = "Boxplot predinastico temprano")
+        main = "Boxplot predinástico temprano")
 
 
 hist(pre_temprano$Anchura.del.cráneo, 
      col = 'lightblue', 
-     main = 'Histograma predinastico temprano',
+     main = 'Histograma predinástico temprano',
      ylim=c(0,14),
      xlab = NULL,
      ylab=NULL)
@@ -122,31 +123,34 @@ hist(pre_tardio$Anchura.del.cráneo,
 
 ## ---- chunk-4 ----
 #Estudio preliminar de la normalidad"
-
+# Funcion que genera graficos a demanda
 histDenNorm <- function (x, ...) {
-  hist(x, col = 'lightblue', labels=seq(25,32, 1), xlab = NULL,...) 
+  hist(x, labels=seq(25,32, 1), xlab = NULL,...) 
   lines(density(x), col = "blue", lwd = 2) 
   x2 <- seq(min(x), max(x), length = 40)
   f <- dnorm(x2, mean(x), sd(x))
   lines(x2, f, col = "red", lwd = 2) 
   legend("topright", c("Sampled density", "Normal density"), box.lty = 0,
-         lty = 1, col = c("blue", "red"), cex = 0.40)
+         lty = 1, col = c("blue", "red"), cex = 1)
 }
 
 temprana <- (pre_temprano$Anchura.del.cráneo)
 tardia <- (pre_tardio$Anchura.del.cráneo)
-par(mfcol = c(1, 2), cex = 1) 
-histDenNorm(temprana, prob = TRUE, main = "Periodo temprano")
-histDenNorm(tardia, prob = TRUE, main = "Periodo tardio")
 
+# Visualizacion graficos de histograma y qqplot
+par(mfcol = c(2, 2), cex = 0.50) 
 
-
-par(mfcol = c(1, 2), cex = 1) 
-qqnorm(pre_temprano$Anchura.del.cráneo, col = 'red', main = "Periodo temprano", 
+# Temprano
+histDenNorm(temprana, prob = TRUE, main = "Periodo temprano", col = "lightblue")
+qqnorm(pre_temprano$Anchura.del.cráneo, 
+       col = 'red', 
+       main = "Periodo temprano", 
        xlab = NULL, 
        ylab = NULL)
 qqline(pre_temprano$Anchura.del.cráneo )
 
+# Tardio
+histDenNorm(tardia, prob = TRUE, main = "Periodo tardio", col = "pink")
 qqnorm(pre_tardio$Anchura.del.cráneo, col = 'darkgreen',
        main = "Periodo tardio", xlab = NULL, ylab = NULL)
 qqline(pre_tardio$Anchura.del.cráneo)
@@ -168,6 +172,14 @@ shapiro.test(pre_temprano$Anchura.del.cráneo)
 ## ---- chunk-shapiro2 ----
 #Shapiro test
 shapiro.test(pre_tardio$Anchura.del.cráneo)
+
+## ---- chunk-lil1 ----
+lillie.test(pre_temprano$Anchura.del.cráneo)
+
+
+## ---- chunk-lil2 ----
+lillie.test(pre_tardio$Anchura.del.cráneo)
+
 
 
 ## ---- chunk-igualvar ----

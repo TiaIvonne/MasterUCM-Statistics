@@ -14,7 +14,7 @@ editor_options:
 
 ##### Módulo: Estadística
 
-##### Profesor: Conrado Manuel García
+##### Profesor: Conrado M. Manuel García
 
 ##### Master big data & business analytics, Universidad Complutense de Madrid
 
@@ -54,30 +54,34 @@ library(modeest)
 
 ### **Resumen**
 
-Este estudio estadístico ha sido realizado para observar medidas de anchura de cráneo segun el periodo historico observado, los cuales son predinástico temprano y predinástico tardío.
+Este estudio estadístico ha sido realizado para observar las medidas de anchura de cráneo segun el periodo histórico observado, los cuales son predinástico temprano y predinástico tardío.
 
-La finalidad de este estudio es poder responder en forma estadística a la pregunta planteada de si existen diferencias en la longitud de anchura de los cráneos egipcios según el paso del tiempo.\
+La finalidad de este estudio es poder responder en forma estadística a la pregunta planteada en el enunciado de este ejercicio de si existen diferencias en la longitud de anchura de los cráneos egipcios según el paso del tiempo.\
 
 ------------------------------------------------------------------------
 
 ### **Ejercicio 1**
 
-Para resolver este ejercicio se han creado dos dataframes a partir del libro excel que contiene los datos tanto para el grupo predinástico temprano como el predinástico tardío.
+Para resolver este ejercicio se han creado dos dataframes a partir del un archivo excel que contiene los datos tanto para el grupo predinástico temprano como el predinástico tardío.
 
 Con estos datos por separado se han analizado cada uno de estos dos periodos históricos, generando las respectivas mediciones y gráficos pertinentes.\
 
 **Ejercicio 1.a**
 
-Se deben obtener con R las diferentes medidas de centralización y dipersión, asimetría y curtosis además de obtener el gráfico de caja y bigotes para cada submuestra.\pagebreak
+**Enunciado:** Se deben obtener con R las diferentes medidas de centralización y dipersión, asimetría y curtosis además de obtener el gráfico de caja y bigotes para cada submuestra.\pagebreak
 
 **Apartado periodo predinástico temprano**
 
-Medidas de centralización, dispersión, asimetría y curtosis para el periodo predinástico temprano o grupo 1.
+Medidas de centralización, dispersión, asimetría y curtosis para el periodo predinástico temprano o época 1.
+
 
 ```{r chunk-1, include=TRUE, eval=TRUE, echo=FALSE}
 
 ```
 
+
+
+**Nota**: En la moda se ha encontrado un empate entre el valor 131 y 132. El resto de mediciones como se puede obervar, se mantiene intacto.
 
 
 ```{r chunk-2, echo=FALSE}
@@ -89,15 +93,15 @@ Medidas de centralización, dispersión, asimetría y curtosis para el periodo p
 
 1.  Para el periodo histórico 1 con 30 casos observados, el promedio de la anchura de cráneos es de 131.5 mm, siendo su mediana del mismo valor.
 
-2.  En el caso de la moda los valores mas repetidos son 131mm y 132mm.
+2.  En el caso de la moda los valores más repetidos son 131mm y 132mm, generándose un empate.
 
-3.  En el caso de la desviación estándar el valor de 0.82 indica
+3.  En el caso de la desviación estándar indica una tendencia a variar por debajo o por encima de la media de la anchura de los craneos en 0.82 mm.
 
-4.  El coeficiente de variacion de Pearson al ser su valor de 0.0062 indica que los datos suelen ser homogeneos.
+4.  El coeficiente de variación de Pearson al ser su valor de 0.0062 indica que los datos suelen ser homogéneos.
 
-5.  En el caso del coeficiente de asimetría de Fisher, el valor es de 0.624 lo que indica que la distribución es asimétrica hacia la izquierda, siendo observado en el apartado del histograma, de forma gráfica.
+5.  En el caso del coeficiente de asimetría de Fisher, el valor es de 0.624 lo que indica que la distribución es asimétrica hacia la izquierda, siendo observado de forma gráfica en el apartado del histograma.
 
-6.  Curtosis: La medición de la curtosis arroja como resultado 1.022 y siendo este valor inferior a 3 se considera como distribución de tipo leptocúrtica.
+6.  Curtosis: La medición de la curtosis arroja como resultado 1.022 y siendo este valor inferior a 3 se considera como distribución de tipo **leptocúrtica.**
 
 7.  Cuartiles: Al analizar tanto la tabla de cuartiles como el gráfico de caja y bigotes se obnserva que los datos están agrupados entre el cuartil 0 y 50, suendo el cuartil 50 donde se posiciona la mediana de 131.5mm.\pagebreak
 
@@ -108,8 +112,6 @@ Medidas de centralización, dispersión, asimetría y curtosis para el periodo p
 ```{r chunk-b, include=TRUE, eval=TRUE, echo=FALSE}
 ```
 
-
-
 ```{r chunk-3, echo=FALSE}
 ```
 
@@ -117,11 +119,11 @@ Medidas de centralización, dispersión, asimetría y curtosis para el periodo p
 
 1.  Para el periodo histórico 2 con 30 casos observados, el promedio de la anchura de craneos es de 132.5 y el valor de la mediana es de 133 mm.
 
-2.  En el caso de la moda la anchura de craneo que mas se repite es de 133 mm.
+2.  En el caso de la moda la anchura de cráneo que más se repite es de 133 mm.
 
-3.  En el caso de la desviación estándar el valor de 0.82 indica
+3.  En el caso de la desviación estándar indica una tendencia a variar por debajo o por encima de la media de la anchura de los cráneos en 1.01 mm.
 
-4.  El coeficiente de variacion de Pearson indica al ser su valor de 0.0076 que los datos suelen ser homogeneos.
+4.  El coeficiente de variación de Pearson indica al ser su valor de 0.0076 que los datos suelen ser homogeneos.
 
 5.  En el caso del coeficiente de asimetria de Fisher, el valor es de 0.185 lo que indica que la distribución es asimetrica hacia la izquierda. En el apartado de histograma, esto se puede constatar de forma gráfica.
 
@@ -131,9 +133,9 @@ Medidas de centralización, dispersión, asimetría y curtosis para el periodo p
 
 **Ejercicio 1.b**\
 **Estudio preliminar de la normalidad**\
-Determinar si cada una de las dos submuestras sigue una distribución normal utilizando el test de Kolmogorov-Smirnov.\
+**Enunciado:** Determinar si cada una de las dos submuestras sigue una distribución normal utilizando el test de Kolmogorov-Smirnov.\
 
-En primer lugar se han creado dos gráficos uno de tipo histograma y el otro de tipo *Quantile-Quantile plot* o qqplot para observar si se evidencia distribución normal, o no, de los datos procesados.
+En primer lugar se han creado dos gráficos, uno de tipo histograma y el otro de tipo *Quantile-Quantile plot* o qqplot para observar si se evidencia distribución normal, o no, de los datos procesados.
 
 ```{r chunk-4, echo= FALSE}
 
@@ -150,32 +152,49 @@ En un principio se ha aplicado la prueba de **Kolmogorov-Smirnov** para distribu
 ```{r kolmogorov-temprano, echo=FALSE}
 ```
 
-Siendo **P-value(0.05877) > α (0.05)**: No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que la muestra siga una distribucion normal.
+Siendo **P-value(0.05877) \>** $\alpha$ (0.05): No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que la muestra siga una distribucion normal.
 
 1.  Periodo predinástico tardío:
 
 ```{r kolmogorov-tardio, echo=FALSE}
 ```
 
-Siendo **P-value(0.07285) > α (0.05)**: No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que la muestra siga una distribucion normal.
+Siendo **P-value(0.07285) \>** $\alpha$ (0.05): No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que la muestra siga una distribucion normal.
 
 El problema con esta prueba es la cantidad relativamente pequeña de datos además de una alerta en R que habla de empate en la muestra.
 
-Conociendo entonces los problemas asociados a la prueba de Kolmogorov-Smirnov para este ejercicio en particular y entendiendo que las muestras de este estudio son pequeñas (30 casos por submuestra) se ha decidido utilizar el test de **Shapiro-Wilk** para normalidad, obteniendo los siguientes resultados:
+Conociendo entonces los problemas asociados a la prueba de Kolmogorov-Smirnov para este ejercicio en particular y entendiendo que las muestras de este estudio son de 30 casos por submuestra se ha decidido utilizar el test de **Shapiro-Wilk** para normalidad, obteniendo los siguientes resultados:
 
 1.  Periodo predinástico temprano
 
 ```{r chunk-shapiro1, echo= FALSE}
 ```
 
-Siendo **P-value(0.0003481) < α (0.05)**: Existe evidencia suficiente para rechazar la hipotesis nula, por lo tanto la muestra para el periodo predinastico temprano **no sigue una distribucion normal.**\
+Siendo **P-value(0.0003481) \<** $\alpha$ (0.05): Existe evidencia suficiente para rechazar la hipótesis nula, por lo tanto la muestra para el periodo predinástico temprano **no sigue una distribución normal.**\
 
 2.  Periodo predinástico tardío
 
 ```{r chunk-shapiro2, echo=FALSE}
 ```
 
-Siendo **P-value(0.0003341) < α (0.05)**: Existe evidencia suficiente para rechazar la hipotesis nula, por lo tanto la muestra para el periodo predinastico tardio **no sigue una distribucion normal.**\pagebreak
+Siendo **P-value(0.0003341) \<** $\alpha$ (0.05): Existe evidencia suficiente para rechazar la hipotesis nula, por lo tanto la muestra para el periodo predinastico tardio **no sigue una distribucion normal.**\pagebreak
+
+
+Otra alternativa es utilizar la **corrección de Lilliefors** para el test Kolmogorov Smirnov, al aplicarlo sobre las sub muestras se obtienen los siguientes resultados.
+
+1.  Periodo predinástico temprano
+
+```{r chunk-lil1, echo= FALSE}
+```
+
+Siendo **P-value(0.00009677) \<** $\alpha$ (0.05): Existe evidencia suficiente para rechazar la hipótesis nula, por lo tanto la muestra para el periodo predinástico temprano **no sigue una distribución normal.**\
+
+2.  Periodo predinástico tardio
+
+```{r chunk-lil2, echo= FALSE}
+```
+
+Siendo **P-value(0.0001938) \<** $\alpha$ (0.05): Existe evidencia suficiente para rechazar la hipótesis nula, por lo tanto la muestra para el periodo predinástico temprano **no sigue una distribución normal.**\
 
 ### **Ejercicio 2**
 
@@ -218,7 +237,7 @@ Aplicado el levene test, se observan los siguientes resultados:
 
 ```
 
-Siendo **P-value(0.4344) \> α (0.05)**: No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que las varianzas de ambas muestras son iguales. Es entonces que al no poder rechazar la hipotesis nula se asume que las varianzas son iguales para efectos del t-test.
+Siendo **P-value(0.4344) \>** $\alpha$ (0.05): No hay evidencia suficiente para rechazar la hipotesis nula. Por lo tanto, no se puede rechazar que las varianzas de ambas muestras son iguales. Es entonces que al no poder rechazar la hipotesis nula se asume que las varianzas son iguales para efectos del t-test.
 
 ***Notas sobre la aplicacion de la prueba***
 
@@ -231,6 +250,6 @@ Expuesto lo anterior se aplica el t-test:
 ```{r chunk-t, echo=FALSE}
 ```
 
-Siendo **P-value(0.0002248) \< α (0.05)**: Existe evidencia suficiente para rechazar la hipotesis nula, por lo tanto la muestras evidencian diferencias entre la media del ancho de los craneos para ambos periodos, siendo en el periodo predinastico tardio donde se evidencia mayor anchura.
+Siendo **P-value(0.0002248) \<** $\alpha$ (0.05): Existe evidencia suficiente para rechazar la hipotesis nula, por lo tanto la muestras evidencian diferencias entre la media del ancho de los craneos para ambos periodos, siendo en el periodo predinastico tardio donde se evidencia mayor anchura.
 
 <!-- \scriptsize <!--#  -->
