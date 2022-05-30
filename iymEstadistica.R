@@ -9,7 +9,7 @@ library(modeest)
 
 
 ## ---- chunk-1 ----
-# Lectura de datos en exxcel y separacion en dos subsets, temprano y tardio
+# Lectura de datos en excel y separacion en dos subsets, temprano y tardio
 datos <- read.xlsx("Libro1.xlsx", sheetIndex = 1)
 pre_temprano <- datos %>% filter(Época.histórica == 1)
 pre_tardio <- datos %>% filter(Época.histórica == 2)
@@ -67,7 +67,6 @@ knitr::kable(percentiles[1, 1:7],
 
 ## ---- chunk-b ----
 
-
 knitr::kable(tabla_resumen[3, 1:10],
              caption = "Anchura de cráneo del periodo predinástico tardío",
              col.names = c("Epoca", names(tabla_resumen)[-1]),
@@ -122,7 +121,7 @@ hist(pre_tardio$Anchura.del.cráneo,
      ylab=NULL)
 
 ## ---- chunk-4 ----
-#Estudio preliminar de la normalidad"
+#Estudio preliminar de la normalidad
 # Funcion que genera graficos a demanda
 histDenNorm <- function (x, ...) {
   hist(x, labels=seq(25,32, 1), xlab = NULL,...) 
@@ -166,20 +165,21 @@ ks.test(pre_tardio$Anchura.del.cráneo, pnorm, mean(pre_tardio$Anchura.del.crán
 
 
 ## ---- chunk-shapiro1 ----
-#Shapiro test
+#Shapiro temprano
 shapiro.test(pre_temprano$Anchura.del.cráneo)
 
 ## ---- chunk-shapiro2 ----
-#Shapiro test
+#Shapiro test tardio
 shapiro.test(pre_tardio$Anchura.del.cráneo)
 
 ## ---- chunk-lil1 ----
+# Lillie temprano
 lillie.test(pre_temprano$Anchura.del.cráneo)
 
 
 ## ---- chunk-lil2 ----
+#Lillie tardio
 lillie.test(pre_tardio$Anchura.del.cráneo)
-
 
 
 ## ---- chunk-igualvar ----
@@ -189,8 +189,6 @@ boxplot(datos$Anchura.del.cráneo ~ datos$Época.histórica,
         names=c("Temprano", "Tardio"),
         xlab = "Epoca historica",
         ylab = 'Anchura del craneo')
-
-
 
 ## ---- chunk-levene ----
 
@@ -208,11 +206,6 @@ t.test(
   conf.level  = 0.95
 )
 
-
-
-## ---- chunk-wilcox ----
-wilcox.test(pre_temprano$Anchura.del.cráneo, pre_tardio$Anchura.del.cráneo,
-            paired = TRUE) 
 
 ## ---- chunk-8 ----
 #Con var equal true se asume que las varianzas son iguales
